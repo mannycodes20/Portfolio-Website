@@ -64,7 +64,7 @@ export const ABOUT = {
   title: "About me",
   lead: [
     "I'm Emmanuel Mensah, a Computer Science (Software Engineering) student at Brunel University London. I build full-stack web apps, AI agents that can operate a computer by themselves, and robots that have to cope with real floors and draining batteries. I also edit anime as Ruto VFX, which is how I ended up writing my own AI video upscaler.",
-    "I grew up in Accra, Ghana, where internet was a luxury and my school didn't teach computer science. I learned anyway. I learned C++ in Dev-C++ at a summer school, web development from my father at 14, and PC hardware from YouTube videos I had to ration my data for. My first computer was built from other people's leftovers. In 2022 I came back to the UK, where I was born, at 17 and with no GCSEs. I took them in seven months, earned a D*DD in BTEC Computer Science and Games Development, and got a place at Brunel.",
+    "I grew up in Accra, Ghana, where internet was a luxury and my school didn't teach computer science. I learned anyway. I learned C++ in Dev-C++ at a summer school, web development from my father at 14, and PC hardware from YouTube videos I had to ration my data for. My first computer was built from other people's leftovers. In 2022, at 17, I came back to the UK, where I was born, with no GCSEs. I took them in seven months, earned a D*DD in BTEC Computer Science and Games Development, and got a place at Brunel.",
     "Technically, I work across the stack. I use Java for robotics and coursework, and Python for agents and data pipelines. I write C# and WPF for desktop tools, TypeScript and React for the web, and Node.js, Express and Prisma for APIs. Real projects have taught me FFmpeg, Playwright, GitHub Actions and the Gemini API. Every project has a full write-up on the Projects page, and the code is on my GitHub.",
   ],
   approach: `// how I work, from a black screen in Accra to Brunel
@@ -85,7 +85,7 @@ while (!me.feelsLikeIKnowEnough) {
       image: "assets/img/accra.jpg",
       alt: "The Accra skyline",
       text: [
-        "I was born in the UK, then sent to Accra as a young child to grow up with my grandparents. That's where I fell for computers. From primary school to the end of secondary school, I was the top student in my IT class every year.",
+        "I was born in the UK, but I didn't grow up here. My mum was new to the country and couldn't look after a baby while she found her feet, so she made the hardest sacrifice a parent can make and sent me to Ghana. My grandma took me in and raised me in Accra. That's where I fell for computers. From primary school to the end of secondary school, I was the top student in my IT class every year.",
         "Wanting to learn and being able to were two different things. We didn't have Wi-Fi at home, and free Wi-Fi didn't exist where I lived. Every YouTube video cost mobile data, so I had to choose what to research. I spent most of it on PC hardware and on trying to build my first app. When I got a chance to learn something, I took it, because I didn't know when the next one would come.",
       ],
     },
@@ -433,7 +433,7 @@ export const POSTS = [
     minutes: 1,
     excerpt: "I built my first computer from parts I salvaged from friends' old PCs in Ghana.",
     body: [
-      "I grew up in Accra with my grandparents. When I wanted a computer, I knew we couldn't afford to buy one. I started collecting old computers from friends and taking out whatever still worked.",
+      "I grew up in Accra with my grandma. When I wanted a computer, I knew we couldn't afford to buy one. I started collecting old computers from friends and taking out whatever still worked.",
       "I had to teach myself how the parts fitted together. It took time and a lot of trial and error before I had a working PC. The parts were old, but I'd put it together myself.",
       "That was where my interest in computers started. I still approach new problems the same way I approached that first build. I try something, see what happens and keep going until I understand why it works.",
     ],
