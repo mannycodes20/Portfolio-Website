@@ -98,13 +98,41 @@ export const PROJECTS = [
   },
 ];
 
-/* Add individual edits when their titles and media are available.
-   Example:
-   { title: "Gojo loop", platform: "TikTok", views: "12K views",
-     url: "https://www.tiktok.com/@rutovfx/video/...",
-     video: "assets/videos/gojo.mp4", poster: "assets/posters/gojo.jpg",
-     colors: ["#26215c", "#0c0c0d", "#993556"] }, */
-export const EDITS = [];
+/* Your edits, newest first. They all play on the phone (in this order) and show in the gallery.
+
+   EASIEST: just paste the video link. TikTok and YouTube links play right in the phone.
+     { title: "Gojo loop", url: "https://www.tiktok.com/@rutovfx/video/7312345678901234567" },
+     { title: "Itachi AMV", url: "https://www.youtube.com/shorts/AbCdEfGhIjK" },
+
+   BEST LOOKING: also add your own mp4 (put it in public/assets/videos).
+   It autoplays, loops and fills the screen with no TikTok/YouTube buttons or cookie popups.
+     { title: "Gojo loop", url: "https://www.tiktok.com/@rutovfx/video/...",
+       video: "assets/videos/gojo.mp4", poster: "assets/posters/gojo.jpg", views: "12K views" },
+
+   Optional: platform ("TikTok"/"YouTube", worked out from the link if left out),
+   colors: three colours for the glow, e.g. ["#26215c", "#0c0c0d", "#993556"]. */
+const TT = "https://www.tiktok.com/@rutovfx/video/";
+
+export const EDITS = [
+  { title: "Rockwav", url: TT + "7703977535012392214",
+    video: "assets/videos/rockwav.mp4", poster: "assets/posters/rockwav.jpg" },
+  { title: "Daytona · Obito vs Kakashi", url: TT + "7696584058813402390",
+    video: "assets/videos/daytona-obito-vs-kakashi.mp4", poster: "assets/posters/daytona-obito-vs-kakashi.jpg" },
+  { title: "The Dairy · Mushoku Tensei", url: TT + "7690697573635476758",
+    video: "assets/videos/mushoku-tensei.mp4", poster: "assets/posters/mushoku-tensei.jpg" },
+  { title: "Monogatari", url: TT + "7686064053998931222",
+    video: "assets/videos/monogatari.mp4", poster: "assets/posters/monogatari.jpg" },
+  { title: "Black Clover (experimental)", url: TT + "7680661724806139158",
+    video: "assets/videos/black-clover.mp4", poster: "assets/posters/black-clover.jpg" },
+  { title: "Aang vs Ozai", url: TT + "7673418664468630806",
+    video: "assets/videos/aang-vs-ozai.mp4", poster: "assets/posters/aang-vs-ozai.jpg" },
+  { title: "Static · Evangelion", url: TT + "7669737753210342678",
+    video: "assets/videos/static-evangelion.mp4", poster: "assets/posters/static-evangelion.jpg" },
+  { title: "", url: TT + "7663243362689928470",
+    video: "assets/videos/finished.mp4", poster: "assets/posters/finished.jpg" },
+  // no mp4 for this one yet, so it plays through TikTok's own player
+  { title: "", url: TT + "7659343705039457558" },
+];
 
 export const POSTS = [
   {

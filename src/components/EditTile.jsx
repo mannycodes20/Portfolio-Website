@@ -13,10 +13,25 @@ export default function EditTile({ edit: e, i, mode }) {
       ? { cls: "a-drop", style: { "--r": `${(i % 2 ? 1 : -1) * (8 + (i % 5) * 3)}deg`, "--d": `${(i * 0.08).toFixed(2)}s` } }
       : { cls: "a-rise", style: { "--d": `${(0.1 + i * 0.07).toFixed(2)}s` } };
 
+  // A TikTok/YouTube link with no poster or mp4: show the playable player itself (tap to play)
+  if (e.embed && !e.poster && !e.video) {
+    return (
+      <div className={`tile tile-embed ${anim.cls}`} style={anim.style} data-reveal>
+        <iframe
+          src={e.embed.replace("autoplay=1", "autoplay=0")}
+          title={e.title}
+          allow="encrypted-media; picture-in-picture; fullscreen"
+          loading="lazy"
+        />
+      </div>
+    );
+  }
+
   return (
     <ExtLink
-      className={`tile ${anim.cls}`}
-      style={{ ...anim.style, height: `${HEIGHTS[i % HEIGHTS.length]}px`, backgroundImage: gradient(e.colors) }}
+      className={`tile ${anim.cls}${e.poster ? " has-poster" : ""}`}
+      // with a real (landscape) poster the tile keeps its 16:9 shape; placeholders get varied heights
+      style={{ ...anim.style, height: e.poster ? undefined : `${HEIGHTS[i % HEIGHTS.length]}px`, backgroundImage: gradient(e.colors) }}
       href={e.url}
       data-reveal
       onMouseEnter={() => videoRef.current?.play().catch(() => {})}

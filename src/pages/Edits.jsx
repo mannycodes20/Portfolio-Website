@@ -1,4 +1,4 @@
-import { EDITS } from "../data.js";
+import { EDITS_FULL as EDITS } from "../lib.js";
 import { Heading } from "../components/bits.jsx";
 import EditTile, { EditsSoon } from "../components/EditTile.jsx";
 

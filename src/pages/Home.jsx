@@ -1,12 +1,97 @@
 import { useEffect, useRef, useState } from "react";
-import { PROFILE, PROJECTS, EDITS } from "../data.js";
-import { avatarUrl, CLIPS, RING, gradient, join, reduceMotion } from "../lib.js";
+import { PROFILE, PROJECTS } from "../data.js";
+import { avatarUrl, CLIPS, EDITS_FULL as EDITS, gradient, join, platformIcon, reduceMotion } from "../lib.js";
 import { Heading, Letters, Icon, SocialPills } from "../components/bits.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import EditTile, { EditsSoon } from "../components/EditTile.jsx";
 
 const FALLBACK_MS = 4500; // how long a clip without a video stays on the phone
-const RING_COUNT = 12;
+
+const clock = () => new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: false });
+
+/* The app-style interface drawn on top of the phone screen:
+   status bar, tabs, side buttons, caption, progress line and bottom bar. */
+function ScreenUI({ edit: e, barRef }) {
+  const [time, setTime] = useState(clock);
+  const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
+  // A tall TikTok/Shorts player brings its own buttons, so ours step aside
+  const tallEmbed = e.embed && e.embedKind.includes("tall");
+
+  useEffect(() => {
+    const id = setInterval(() => setTime(clock()), 15000);
+    return () => clearInterval(id);
+  }, []);
+  // reset the buttons for each new clip
+  useEffect(() => {
+    setLiked(false);
+    setSaved(false);
+    setCopied(false);
+  }, [e]);
+
+  const share = () => {
+    const done = () => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    };
+    if (navigator.clipboard && e.url) navigator.clipboard.writeText(e.url).then(done, done);
+    else done();
+  };
+
+  return (
+    <div className={`screen-ui${tallEmbed ? " tall-embed" : ""}`}>
+      <div className="status-bar">
+        <span>{time}</span>
+        <span className="island" />
+        <span className="status-icons"><Icon name="antenna-bars-5" /><Icon name="wifi" /><Icon name="battery-3" /></span>
+      </div>
+
+      {!tallEmbed && (
+        <>
+          <div className="screen-tabs">
+            <Icon name="sparkles" />
+            <span className="tabs"><b>Latest</b><a href="#edits">All edits</a></span>
+            <a href="#edits" aria-label="All edits"><Icon name="adjustments-horizontal" /></a>
+          </div>
+
+          <div className="screen-rail">
+            <button type="button" aria-label="Like" aria-pressed={liked} onClick={() => setLiked(!liked)}>
+              <Icon name={liked ? "heart-filled" : "heart"} /><span>{liked ? "liked" : "like"}</span>
+            </button>
+            <a href={e.url} target="_blank" rel="noopener" aria-label={`Comment on ${e.platform}`}>
+              <Icon name="message-circle" /><span>chat</span>
+            </a>
+            <button type="button" aria-label="Save" aria-pressed={saved} onClick={() => setSaved(!saved)}>
+              <Icon name={saved ? "bookmark-filled" : "bookmark"} /><span>save</span>
+            </button>
+            <button type="button" aria-label="Copy link" onClick={share}>
+              <Icon name={copied ? "check" : "link"} /><span>{copied ? "copied" : "share"}</span>
+            </button>
+          </div>
+
+          <a className="screen-caption" href={e.url} target="_blank" rel="noopener">
+            <b>{PROFILE.handle}</b>
+            <span className="cap-meta">{join(e.platform, e.views)}</span>
+            <span className="cap-title">{e.title}</span>
+            <span className="watch">Watch on {e.platform} <Icon name="arrow-up-right" /></span>
+          </a>
+
+          {!e.embed && <div className="screen-progress"><i ref={barRef} /></div>}
+        </>
+      )}
+
+      <nav className="screen-nav" aria-label="Phone menu">
+        <a href="#home" aria-label="Home"><Icon name="home" /></a>
+        <span className="on" aria-hidden="true"><Icon name="player-play" /></span>
+        <a href="#story" className="mini-logo" aria-label="My story">em.</a>
+        <a href="#projects" aria-label="Projects"><Icon name="code" /></a>
+        {PROFILE.tiktok && <a href={PROFILE.tiktok} target="_blank" rel="noopener" aria-label="TikTok"><Icon name="brand-tiktok" /></a>}
+      </nav>
+      <div className="home-bar" />
+    </div>
+  );
+}
 
 export default function Home({ onClip }) {
   const featured = PROJECTS.filter((p) => p.featured).slice(0, 2);
@@ -49,7 +134,10 @@ export default function Home({ onClip }) {
       </div>
       {EDITS.length ? (
         <div className="masonry">
-          {EDITS.slice(0, 6).map((e, i) => <EditTile key={e.url + i} edit={e} i={i} mode="rise" />)}
+          {/* players are heavier than pictures, so show one row of 3 when the tiles are TikTok players */}
+          {EDITS.slice(0, EDITS[0].embed && !EDITS[0].poster ? 3 : 6).map((e, i) => (
+            <EditTile key={e.url + i} edit={e} i={i} mode="rise" />
+          ))}
         </div>
       ) : (
         <EditsSoon />
@@ -72,12 +160,20 @@ function Stage({ onClip }) {
   const [clip, setClip] = useState(0);
   const [flipped, setFlipped] = useState(false);
 
-  const n = CLIPS.length;
-  const go = (step) => setClip((c) => (c + step + n) % n);
-  const e = CLIPS[clip];
+  const targetRot = useRef(0);
 
-  // New clip: load its video (if any) and tell the background to match
+  const n = CLIPS.length;
+  const step = 360 / n;
+  const go = (s) => setClip((c) => (c + s + n) % n);
+  const e = CLIPS[clip % n];
+
+  // New clip: turn the ring so this clip's card sits behind the phone (shortest way round),
+  // load its video (if any) and tell the background to match
   useEffect(() => {
+    let d = clip - clipRef.current;
+    if (d > n / 2) d -= n;
+    if (d < -n / 2) d += n;
+    targetRot.current -= d * step;
     clipRef.current = clip;
     clipStart.current = performance.now();
     const v = videoRef.current;
@@ -92,17 +188,19 @@ function Stage({ onClip }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clip]);
 
-  // One animation loop: spins the ring and moves the clip progress line
+  // One animation loop: turns the ring (the queue) and moves the clip progress line
   useEffect(() => {
     const cards = [...ringRef.current.children];
     let rot = 0;
     let raf;
     const tick = (now) => {
       if (!document.hidden) {
-        if (!hover.current && !reduceMotion) rot += 0.12;
-        const radius = Math.min(360, window.innerWidth * 0.5); // smaller ring on phones
+        // glide towards the current clip; a gentle sway keeps it alive while idle
+        rot += (targetRot.current - rot) * (reduceMotion ? 1 : 0.07);
+        const sway = hover.current || reduceMotion ? 0 : Math.sin(now / 2200) * 5;
+        const radius = Math.min(470, window.innerWidth * 0.5); // smaller ring on phones
         cards.forEach((card, k) => {
-          const angle = k * (360 / cards.length) + rot;
+          const angle = k * (360 / cards.length) + rot + sway;
           const facing = Math.cos((angle * Math.PI) / 180); // 1 = front, -1 = back
           card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
           card.style.opacity = (0.22 + (0.78 * (facing + 1)) / 2).toFixed(2);
@@ -110,9 +208,10 @@ function Stage({ onClip }) {
 
         const cur = CLIPS[clipRef.current];
         const v = videoRef.current;
-        const p = cur.video && v.duration ? v.currentTime / v.duration : (now - clipStart.current) / FALLBACK_MS;
+        // TikTok/YouTube players don't tell us their length, so those stay until you press next
+        const p = cur.embed ? 0 : cur.video && v.duration ? v.currentTime / v.duration : (now - clipStart.current) / FALLBACK_MS;
         if (barRef.current) barRef.current.style.width = Math.min(100, p * 100).toFixed(1) + "%";
-        if (!cur.video && p >= 1 && !reduceMotion) {
+        if (!cur.video && !cur.embed && p >= 1 && !reduceMotion) {
           clipStart.current = now;
           setClip((c) => (c + 1) % CLIPS.length);
         }
@@ -171,10 +270,29 @@ function Stage({ onClip }) {
       onMouseLeave={() => (hover.current = false)}
     >
       <div className="ring" ref={ringRef} aria-hidden="true">
-        {Array.from({ length: RING_COUNT }, (_, k) => {
-          const r = RING[k % RING.length];
+        {/* One card per clip in the queue. The current one sits behind the phone,
+            what's coming up lines up to the right. Click a card to jump to it. */}
+        {CLIPS.map((c, k) => {
+          const state = k === clip ? "now" : k === (clip + 1) % n ? "next" : "";
           return (
-            <div key={k} className="ring-card" style={{ backgroundImage: r.poster ? `url("${r.poster}")` : gradient(r.colors) }} />
+            <button
+              key={k}
+              type="button"
+              tabIndex={-1}
+              className={`ring-card${state ? " " + state : ""}${c.poster ? " has-poster" : ""}`}
+              style={{ backgroundImage: c.poster ? `url("${c.poster}")` : gradient(c.colors) }}
+              onClick={() => setClip(k)}
+            >
+              <span className="rc-top">
+                <span className="rc-num">{String(k + 1).padStart(2, "0")}</span>
+                {state === "next" && <span className="rc-badge">Up next</span>}
+                {state === "now" && <span className="rc-badge">Playing</span>}
+              </span>
+              <span className="rc-bottom">
+                <span className="rc-title">{c.title}</span>
+                <span className="rc-plat"><Icon name={platformIcon(c.platform)} />{c.platform}</span>
+              </span>
+            </button>
           );
         })}
       </div>
@@ -196,7 +314,10 @@ function Stage({ onClip }) {
                 onClickCapture={onClickCapture}
                 onDragStart={(ev) => ev.preventDefault()}
               >
-                <div className="screen-fallback" style={{ backgroundImage: gradient(e.colors) }} />
+                {/* Placeholder: a 16:9 "video" in the middle of the screen until real edits are added */}
+                {!e.video && !e.embed && (
+                  <div className="screen-fallback" style={{ backgroundImage: gradient(e.colors) }} />
+                )}
                 <video
                   ref={videoRef}
                   muted
@@ -205,18 +326,17 @@ function Stage({ onClip }) {
                   style={{ opacity: e.video ? 1 : 0 }}
                   onEnded={() => go(1)}
                 />
-                <div className="island" />
-                <a className="screen-caption" href={e.url} target="_blank" rel="noopener">
-                  <b>{PROFILE.handle}</b>
-                  <br />
-                  {e.title}
-                  <br />
-                  <span style={{ opacity: 0.75 }}>{join(e.platform, e.views)}</span>
-                  <br />
-                  <span className="watch">Watch on {e.platform} <Icon name="arrow-up-right" /></span>
-                </a>
-                <div className="screen-progress"><i ref={barRef} /></div>
-                <div className="home-bar" />
+                {e.embed && (
+                  <iframe
+                    key={e.embed}
+                    className={`phone-embed ${e.embedKind}`}
+                    src={e.embed}
+                    title={e.title || `${e.platform} video`}
+                    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                    loading="lazy"
+                  />
+                )}
+                <ScreenUI edit={e} barRef={barRef} />
               </div>
             </div>
           </div>
@@ -229,9 +349,17 @@ function Stage({ onClip }) {
             </div>
           </div>
         </div>
-        <button className="phone-flip" type="button" onClick={() => setFlipped((f) => !f)}>
-          <Icon name="rotate-360" />Flip
-        </button>
+        <div className="phone-controls">
+          <button className="phone-flip" type="button" aria-label="Previous edit" onClick={() => go(-1)}>
+            <Icon name="chevron-up" />
+          </button>
+          <button className="phone-flip" type="button" onClick={() => setFlipped((f) => !f)}>
+            <Icon name="rotate-360" />Flip
+          </button>
+          <button className="phone-flip" type="button" aria-label="Next edit" onClick={() => go(1)}>
+            <Icon name="chevron-down" />
+          </button>
+        </div>
       </div>
     </section>
   );

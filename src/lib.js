@@ -36,6 +36,50 @@ export const PLACEHOLDER_CLIPS = PLACEHOLDER_COLORS.map((colors, i) => {
   };
 });
 
-// What the phone and ring show: your real edits, or placeholders if there are none yet
-export const CLIPS = EDITS.length ? EDITS.slice(0, 5) : PLACEHOLDER_CLIPS;
-export const RING = EDITS.length ? EDITS.slice(0, 12) : PLACEHOLDER_CLIPS;
+/* Turns a TikTok or YouTube link into a player the phone can show.
+   Works with links like:
+     https://www.tiktok.com/@rutovfx/video/7312345678901234567
+     https://www.youtube.com/shorts/AbCdEfGhIjK   or   https://youtu.be/AbCdEfGhIjK */
+export function parseLink(url = "") {
+  let m = url.match(/tiktok\.com\/.*?\/video\/(\d+)/);
+  if (m) {
+    return {
+      kind: "tiktok tall",
+      embed: `https://www.tiktok.com/player/v1/${m[1]}?autoplay=1&muted=1&loop=1&music_info=0&description=0&rel=0&fullscreen_button=0&timestamp=0&progress_bar=0`,
+      thumb: "",
+    };
+  }
+  const short = url.match(/youtube\.com\/shorts\/([\w-]{11})/);
+  m = short || url.match(/youtu\.be\/([\w-]{11})/) || url.match(/[?&]v=([\w-]{11})/);
+  if (m) {
+    const id = m[1];
+    return {
+      // Shorts are tall and fill the screen; normal videos sit in the middle, letterboxed
+      kind: short ? "youtube tall" : "youtube wide",
+      embed: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&rel=0`,
+      thumb: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    };
+  }
+  return null;
+}
+
+// Fills in anything an edit in data.js leaves out (platform, colours, poster, player)
+const ALL_EDITS = EDITS.map((e, i) => {
+  const link = parseLink(e.url);
+  return {
+    views: "",
+    video: "",
+    ...e,
+    title: e.title || "Ruto VFX edit",
+    platform: e.platform || (link?.kind.startsWith("tiktok") ? "TikTok" : link?.kind.startsWith("youtube") ? "YouTube" : ""),
+    colors: e.colors || PLACEHOLDER_COLORS[i % PLACEHOLDER_COLORS.length],
+    poster: e.poster || link?.thumb || "",
+    // an mp4 in assets/videos wins; otherwise play the TikTok/YouTube link itself
+    embed: e.video ? "" : link?.embed || "",
+    embedKind: link?.kind || "",
+  };
+});
+export { ALL_EDITS as EDITS_FULL };
+
+// The phone's play queue (up to 12 edits). The ring of cards shows the same queue.
+export const CLIPS = ALL_EDITS.length ? ALL_EDITS.slice(0, 12) : PLACEHOLDER_CLIPS;
