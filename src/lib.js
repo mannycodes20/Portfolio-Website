@@ -63,8 +63,12 @@ export function parseLink(url = "") {
   return null;
 }
 
+// Once any edit has its own mp4, edits without one are left out, so every card has a video
+const WITH_VIDEO = EDITS.filter((e) => e.video);
+const SOURCE = WITH_VIDEO.length ? WITH_VIDEO : EDITS;
+
 // Fills in anything an edit in data.js leaves out (platform, colours, poster, player)
-const ALL_EDITS = EDITS.map((e, i) => {
+const ALL_EDITS = SOURCE.map((e, i) => {
   const link = parseLink(e.url);
   return {
     views: "",
@@ -83,3 +87,20 @@ export { ALL_EDITS as EDITS_FULL };
 
 // The phone's play queue (up to 12 edits). The ring of cards shows the same queue.
 export const CLIPS = ALL_EDITS.length ? ALL_EDITS.slice(0, 12) : PLACEHOLDER_CLIPS;
+
+/* Live-ish repo stats for a project (stars, language, last push), from src/github.json,
+   which the nightly GitHub Action refreshes. */
+import GH from "./github.json";
+export function repoStats(project) {
+  const url = project.links?.github;
+  if (!url) return null;
+  const name = url.replace(/\/$/, "").split("/").pop().toLowerCase();
+  return GH.repos[name] || null;
+}
+export const since = (iso) => {
+  const d = Math.round((Date.now() - new Date(iso)) / 86400000);
+  if (d < 1) return "today";
+  if (d < 30) return `${d}d ago`;
+  if (d < 365) return `${Math.round(d / 30)}mo ago`;
+  return `${Math.round(d / 365)}y ago`;
+};

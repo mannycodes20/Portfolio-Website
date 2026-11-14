@@ -109,3 +109,13 @@ export function SocialPills() {
     </>
   );
 }
+
+// "Edit on GitHub": opens a file of this site's repo in GitHub's editor, so anyone can suggest a fix
+export function EditOnGitHub({ file = "src/data.js", label = "Suggest an edit on GitHub" }) {
+  if (!PROFILE.repo) return null;
+  return (
+    <ExtLink className="edit-gh" href={`https://github.com/${PROFILE.repo}/edit/main/${file}`}>
+      <Icon name="pencil" />{label}
+    </ExtLink>
+  );
+}

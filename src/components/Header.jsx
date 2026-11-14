@@ -3,10 +3,11 @@ import { Icon } from "./bits.jsx";
 
 const LINKS = [
   ["home", "Home", "layout-grid"],
-  ["story", "My story", "user"],
+  ["about", "About", "user"],
   ["projects", "Projects", "code"],
   ["edits", "Edits", "player-play"],
   ["writing", "Writing", "notes"],
+  ["guestbook", "Guestbook", "message-circle"],
 ];
 
 // "em." logo with the underline that draws on.

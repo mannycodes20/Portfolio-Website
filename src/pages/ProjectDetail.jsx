@@ -1,6 +1,6 @@
 import { join } from "../lib.js";
-import { Heading, Icon, ExtLink, CopyButton } from "../components/bits.jsx";
-import { Shot } from "../components/ProjectCard.jsx";
+import { Heading, Icon, ExtLink, CopyButton, EditOnGitHub } from "../components/bits.jsx";
+import { Shot, RepoStats } from "../components/ProjectCard.jsx";
 
 // Write-up page for one project. Empty sections (no steps, no run command) are left out.
 export default function ProjectDetail({ project: p }) {
@@ -15,6 +15,7 @@ export default function ProjectDetail({ project: p }) {
       <div className="tags a-rise" style={{ "--d": ".25s" }}>
         {p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
       </div>
+      <RepoStats project={p} />
       <section className="a-rise" style={{ "--d": ".3s" }}>
         <h3>What it does</h3>
         <p>{p.what}</p>
@@ -39,6 +40,7 @@ export default function ProjectDetail({ project: p }) {
         {p.links.site && <ExtLink className="pill" href={p.links.site}><Icon name="world" />Website</ExtLink>}
         {p.links.demo && <ExtLink className="pill" href={p.links.demo}><Icon name="external-link" />Live demo</ExtLink>}
       </div>
+      <EditOnGitHub label="Spotted a mistake? Suggest an edit on GitHub" />
     </article>
   );
 }

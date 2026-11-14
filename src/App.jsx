@@ -7,7 +7,8 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import Player from "./components/Player.jsx";
 import Home from "./pages/Home.jsx";
-import Story from "./pages/Story.jsx";
+import About from "./pages/About.jsx";
+import Guestbook from "./pages/Guestbook.jsx";
 import Projects from "./pages/Projects.jsx";
 import ProjectDetail from "./pages/ProjectDetail.jsx";
 import Edits from "./pages/Edits.jsx";
@@ -18,13 +19,15 @@ import Credits from "./pages/Credits.jsx";
 // Works out which page to show from the # part of the address
 function resolve(hash, onClip) {
   const simple = {
-    story: [<Story />, "My story"],
+    about: [<About />, "About"],
+    story: [<About />, "About", "about"], // old links to #story still work
     projects: [<Projects />, "Projects"],
-    edits: [<Edits />, "Edits"],
+    edits: [<Edits onClip={onClip} />, "Edits"],
     writing: [<Writing />, "Writing"],
-    credits: [<Credits />, "Music credits"],
+    guestbook: [<Guestbook />, "Guestbook"],
+    credits: [<Credits />, "Credits"],
   };
-  if (simple[hash]) return { page: simple[hash][0], nav: hash, title: simple[hash][1] };
+  if (simple[hash]) return { page: simple[hash][0], nav: simple[hash][2] || hash, title: simple[hash][1] };
 
   if (hash.startsWith("project-")) {
     const p = PROJECTS.find((x) => "project-" + x.slug === hash);
@@ -34,7 +37,7 @@ function resolve(hash, onClip) {
     const p = POSTS.find((x) => "post-" + x.slug === hash);
     if (p) return { page: <Post post={p} />, nav: "writing", title: p.title };
   }
-  return { page: <Home onClip={onClip} />, nav: "home", title: "" };
+  return { page: <Home />, nav: "home", title: "" };
 }
 
 export default function App() {

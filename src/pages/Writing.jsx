@@ -1,6 +1,7 @@
 import { POSTS } from "../data.js";
 import { join } from "../lib.js";
 import { Heading, Trace } from "../components/bits.jsx";
+import TechNews from "../components/TechNews.jsx";
 
 // Writing page: a highlighter sweeps across each title
 export default function Writing() {
@@ -27,6 +28,7 @@ export default function Writing() {
           </a>
         ))}
       </div>
+      <TechNews />
     </>
   );
 }

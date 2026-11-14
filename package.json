@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "node scripts/feed.mjs && vite",
+    "build": "node scripts/feed.mjs && vite build",
+    "preview": "vite preview",
+    "sync": "node scripts/sync-github.mjs"
   },
   "dependencies": {
     "react": "18.3.1",

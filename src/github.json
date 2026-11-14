@@ -1,0 +1,122 @@
+{
+  "user": "mannycodes20",
+  "synced": "2026-11-14",
+  "publicRepos": 13,
+  "followers": 3,
+  "since": "2024",
+  "stars": 8,
+  "languages": [
+    [
+      "Java",
+      3
+    ],
+    [
+      "Python",
+      1
+    ],
+    [
+      "JavaScript",
+      1
+    ],
+    [
+      "TypeScript",
+      1
+    ],
+    [
+      "C#",
+      1
+    ]
+  ],
+  "repos": {
+    "mannycodes20": {
+      "name": "mannycodes20",
+      "url": "https://github.com/mannycodes20/mannycodes20",
+      "description": "",
+      "language": "Python",
+      "stars": 2,
+      "forks": 0,
+      "pushed": "2026-11-14T13:36:06Z"
+    },
+    "portfolio-website": {
+      "name": "Portfolio-Website",
+      "url": "https://github.com/mannycodes20/Portfolio-Website",
+      "description": "My personal portfolio site, built with [HTML/CSS/JS / React / Next.js], featuring my projects, background, and ways to get in touch.",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushed": "2026-11-14T05:30:47Z"
+    },
+    "ticktrack-uk": {
+      "name": "ticktrack-uk",
+      "url": "https://github.com/mannycodes20/ticktrack-uk",
+      "description": "Crowdsourced map of UK tick sightings with species guide, trends and reporting. Built with React, Node and TypeScript.",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushed": "2026-10-31T22:26:57Z"
+    },
+    "swiftzig-public": {
+      "name": "SwiftZig-Public",
+      "url": "https://github.com/mannycodes20/SwiftZig-Public",
+      "description": "QR-configured zigzag navigation for the SwiftBot, This was done with Java, Maven, custom LED colours, journey logging, and a built-in calibration tool.Also One of My First Year Assignment.This was Graded an A+ assignment.",
+      "language": "Java",
+      "stars": 1,
+      "forks": 0,
+      "pushed": "2026-09-20T18:58:18Z"
+    },
+    "fookupscaler": {
+      "name": "FookUpscaler",
+      "url": "https://github.com/mannycodes20/FookUpscaler",
+      "description": "AI-powered video upscaler using Real-ESRGAN. Free alternative to Topaz Video AI.",
+      "language": "C#",
+      "stars": 2,
+      "forks": 0,
+      "pushed": "2026-03-31T06:15:45Z"
+    },
+    "weight-converter": {
+      "name": "Weight-Converter",
+      "url": "https://github.com/mannycodes20/Weight-Converter",
+      "description": "",
+      "language": "",
+      "stars": 0,
+      "forks": 0,
+      "pushed": "2026-02-07T21:45:29Z"
+    },
+    "shoping-cart-system": {
+      "name": "Shoping-Cart-System",
+      "url": "https://github.com/mannycodes20/Shoping-Cart-System",
+      "description": "A basic Java console application that simulates a simple shopping cart experience. The program prompts the user to enter an item name, its price, and the desired quantity. It then calculates the total cost by multiplying the price by the quantity and displays a purchase summary showing the number of items bought and the total price in dollars.",
+      "language": "",
+      "stars": 0,
+      "forks": 0,
+      "pushed": "2026-02-02T22:47:50Z"
+    },
+    "madlib-game": {
+      "name": "Madlib-Game",
+      "url": "https://github.com/mannycodes20/Madlib-Game",
+      "description": "A Java console application I created implementing the classic MadLibs game. Prompts users for nouns, verbs, adjectives via Scanner input, stores responses in variables, and dynamically inserts them into story templates using string concatenation. Outputs the completed narrative to console. Demonstrates input handling and string manipulation.",
+      "language": "Java",
+      "stars": 0,
+      "forks": 0,
+      "pushed": "2026-01-31T18:12:35Z"
+    },
+    "simon-swift---swiftbot": {
+      "name": "Simon-Swift---SwiftBot",
+      "url": "https://github.com/mannycodes20/Simon-Swift---SwiftBot",
+      "description": "This is my github for a group work ",
+      "language": "Java",
+      "stars": 2,
+      "forks": 0,
+      "pushed": "2025-12-03T20:14:35Z"
+    },
+    "emman-hub": {
+      "name": "EMMAN-HUB",
+      "url": "https://github.com/mannycodes20/EMMAN-HUB",
+      "description": "Config files for my GitHub profile.",
+      "language": "",
+      "stars": 0,
+      "forks": 0,
+      "pushed": "2024-08-23T09:12:45Z"
+    }
+  }
+}

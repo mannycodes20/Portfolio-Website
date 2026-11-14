@@ -1,5 +1,6 @@
 import { join } from "../lib.js";
-import { Heading, Icon } from "../components/bits.jsx";
+import { Heading, Icon, EditOnGitHub } from "../components/bits.jsx";
+import Giscus from "../components/Giscus.jsx";
 
 // One blog post. A body line starting with "## " becomes a sub-heading.
 export default function Post({ post: p }) {
@@ -14,6 +15,12 @@ export default function Post({ post: p }) {
           ? <h2 key={i} className="a-rise" style={style}>{para.slice(3)}</h2>
           : <p key={i} className="a-rise" style={style}>{para}</p>;
       })}
+      <div className="post-tools">
+        <EditOnGitHub label="Edit this post on GitHub" />
+        <a className="edit-gh" href="feed.xml"><Icon name="rss" />RSS</a>
+      </div>
+      <h2>Comments</h2>
+      <Giscus term={`post-${p.slug}`} />
     </article>
   );
 }

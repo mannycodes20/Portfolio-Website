@@ -1,4 +1,18 @@
 import { Trace, Icon, ExtLink } from "./bits.jsx";
+import { repoStats, since } from "../lib.js";
+
+// Stars, language and last push from GitHub
+export function RepoStats({ project }) {
+  const r = repoStats(project);
+  if (!r) return null;
+  return (
+    <span className="repo-stats mono">
+      {r.language && <span><i className="lang-dot" />{r.language}</span>}
+      <span><Icon name="star" />{r.stars}</span>
+      <span>pushed {since(r.pushed)}</span>
+    </span>
+  );
+}
 
 // Screenshot, or a drawn browser window if there's no image yet
 export function Shot({ project: p }) {
@@ -48,6 +62,7 @@ export default function ProjectCard({ project: p, i, deal = false }) {
         </div>
         <h3 className="project-title"><a href={`#project-${p.slug}`}>{p.title}</a></h3>
         <p className="project-summary">{p.summary}</p>
+        <RepoStats project={p} />
         <div className="tags">
           {shown.map((t) => <span className="tag" key={t}>{t}</span>)}
           {extra > 0 && <span className="tag">+{extra}</span>}

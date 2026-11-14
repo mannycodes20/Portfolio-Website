@@ -7,3 +7,6 @@ Thumbs.db
 *.log
 .claude/
 edits-raw/
+
+# generated on every build by scripts/feed.mjs
+public/feed.xml
