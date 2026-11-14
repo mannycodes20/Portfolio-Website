@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#0c0c0d"/>
+  <text x="31" y="40" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="34" fill="#f2f2f2">em.</text>
+  <path d="M14 47c10-3 24-4 36-2" fill="none" stroke="#378add" stroke-width="3" stroke-linecap="round"/>
+</svg>
