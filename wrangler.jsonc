@@ -1,0 +1,9 @@
+// Cloudflare Workers config: serves the built site (the dist folder) as static files.
+// "name" must match the project name you typed in the Cloudflare dashboard.
+{
+  "name": "emmanuel-mensah",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}
