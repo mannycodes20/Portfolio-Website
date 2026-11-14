@@ -6,7 +6,7 @@ export const PROFILE = {
   initials: "em",
   role: "Student · developer · video editor",
   school: "Brunel University London",
-  bio: "I study Computer Science at Brunel University London. I grew up in Ghana, where I built my first PC from salvaged parts. Now I build software and make anime vfx edits as Ruto VFX.",
+  bio: "I study Computer Science at Brunel University London. Born in the UK, grew up in Ghana, where I built my first PC from salvaged parts. Now I build software and make anime vfx edits as Ruto VFX.",
   footerBio: "I study Computer Science at Brunel, build software and make anime edits as Ruto VFX.",
   github: "mannycodes20",
   youtube: "https://www.youtube.com/@rutovisualfx",
