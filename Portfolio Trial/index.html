@@ -1,63 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Emmanuel Mensah · Developer and Video Editor</title>
+  <meta name="description" content="Emmanuel Mensah: student, developer and video editor. Projects, edits, writing and my story.">
+  <meta name="theme-color" content="#0c0c0d">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">    <link rel="stylesheet" href="styles.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.css" integrity="sha512-Z0kTB03S7BU+JFU0nw9mjSBcRnZm2Bvm0tzOX9/OuOuz01XQfOpa0w/N9u6Jf2f1OAdegdIPWZ9nIZZ+keEvBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Fonts: Unbounded (headings), Outfit (body), Space Mono (labels), Sacramento (logo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Outfit:wght@300;400;500&family=Space+Mono:wght@400;700&family=Sacramento&display=swap">
 
+  <!-- Icons: Tabler Icons webfont -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 
-
-    <title>Emmanuel's Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
- 
-    <! -- NAVBAR -->
-    <nav> 
-        <div  class = "left">
-            <a href = "/">Emmanuel Mensah</a>
-        </div>
+<body data-view="home">
 
+  <!-- Blurred copy of the phone's video, behind everything -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg-layer" id="bgA"></div>
+    <div class="bg-layer" id="bgB"></div>
+    <div class="bg-shade"></div>
+  </div>
 
-        <div class = "right">
-            <a href ="http://github.com"  target = "_blank" rel="noopener 
-            noreferrer">
-        <i class="fa-brands fa-github"></i>
-        <span>Github</span>
- 
-       </a>
-       
-       <a href ="http://LinkedIn.com"  target = "_blank" rel="noopener 
-            noreferrer">
-        <i class="fa-brands fa-linkedin"></i>
-        <span>LinkedIn</span>
- 
-       </a>
+  <!-- Film grain overlay -->
+  <div class="grain" id="grain" aria-hidden="true"></div>
 
-       <a href ="mailto:emmanuelmensah@example.com  " >
-        <i class="fa-brands fa-yahoo"></i>
-        <span>Yahoo</span>
- 
-       </a>
-        </div>
+  <a class="skip" href="#view">Skip to content</a>
+
+  <header class="site-header">
+    <a class="logo" id="logo" href="#home" aria-label="Emmanuel Mensah, home">
+      <span class="logo-em">em.</span>
+      <svg class="logo-line" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+        <path class="trim" pathLength="1" d="M4 7C28 2 62 1 96 4"/>
+      </svg>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-nav="home" aria-label="Home" title="Home"><i class="ti ti-layout-grid" aria-hidden="true"></i></a>
+      <a href="#story" data-nav="story" aria-label="My story" title="My story"><i class="ti ti-user" aria-hidden="true"></i></a>
+      <a href="#projects" data-nav="projects" aria-label="Projects" title="Projects"><i class="ti ti-code" aria-hidden="true"></i></a>
+      <a href="#edits" data-nav="edits" aria-label="Edits" title="Edits"><i class="ti ti-player-play" aria-hidden="true"></i></a>
+      <a href="#writing" data-nav="writing" aria-label="Writing" title="Writing"><i class="ti ti-notes" aria-hidden="true"></i></a>
     </nav>
 
-    <main>
+    <span class="header-spacer" aria-hidden="true"></span>
+  </header>
 
-        <!-- HERO -->
-        <section id="hero"> </section>
+  <!-- Each page is drawn into here by js/main.js -->
+  <main id="view" class="view" tabindex="-1"></main>
 
-        <!-- Skills -->
-        <section id="Skills"> </section>
+  <footer class="site-footer" id="footer"></footer>
 
-        <!-- Projects -->
-        <section id="Projects"> </section>
+  <!-- Music player bar -->
+  <section class="player" id="player" aria-label="Music player">
+    <div class="player-now">
+      <div class="player-art" id="pArt"></div>
+      <div class="player-text">
+        <div class="player-title" id="pTitle">Track title</div>
+        <div class="player-artist" id="pArtist">Artist</div>
+      </div>
+      <button class="icon-btn" id="pLike" aria-label="Like" aria-pressed="false"><i class="ti ti-heart" aria-hidden="true"></i></button>
+    </div>
 
-        <!-- Contact -->
-        <section id="Contact"> </section>
+    <div class="player-main">
+      <div class="player-controls">
+        <button class="icon-btn" id="pShuffle" aria-label="Shuffle" aria-pressed="false"><i class="ti ti-arrows-shuffle" aria-hidden="true"></i></button>
+        <button class="icon-btn" id="pPrev" aria-label="Previous track"><i class="ti ti-player-skip-back" aria-hidden="true"></i></button>
+        <button class="icon-btn play-btn" id="pPlay" aria-label="Play"><i class="ti ti-player-play" aria-hidden="true"></i></button>
+        <button class="icon-btn" id="pNext" aria-label="Next track"><i class="ti ti-player-skip-forward" aria-hidden="true"></i></button>
+        <button class="icon-btn on" id="pRepeat" aria-label="Repeat" aria-pressed="true"><i class="ti ti-repeat" aria-hidden="true"></i></button>
+      </div>
+      <div class="player-seek">
+        <span id="pCur">0:00</span>
+        <input type="range" id="pSeek" min="0" max="1000" step="1" value="0" aria-label="Seek">
+        <span id="pDur">0:00</span>
+      </div>
+    </div>
+
+    <div class="player-volume">
+      <i class="ti ti-volume" id="pVolIcon" aria-hidden="true"></i>
+      <input type="range" id="pVol" min="0" max="100" step="1" value="60" aria-label="Volume">
+    </div>
+
+    <audio id="audio" preload="none"></audio>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
