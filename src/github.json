@@ -1,6 +1,6 @@
 {
   "user": "mannycodes20",
-  "synced": "2026-11-14",
+  "synced": "2026-11-15",
   "publicRepos": 13,
   "followers": 3,
   "since": "2024",
@@ -11,11 +11,11 @@
       3
     ],
     [
-      "Python",
+      "JavaScript",
       1
     ],
     [
-      "JavaScript",
+      "Python",
       1
     ],
     [
@@ -28,6 +28,15 @@
     ]
   ],
   "repos": {
+    "portfolio-website": {
+      "name": "Portfolio-Website",
+      "url": "https://github.com/mannycodes20/Portfolio-Website",
+      "description": "My personal portfolio site, built with [HTML/CSS/JS / React / Next.js], featuring my projects, background, and ways to get in touch.",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushed": "2026-11-14T20:00:38Z"
+    },
     "mannycodes20": {
       "name": "mannycodes20",
       "url": "https://github.com/mannycodes20/mannycodes20",
@@ -36,15 +45,6 @@
       "stars": 2,
       "forks": 0,
       "pushed": "2026-11-14T13:36:06Z"
-    },
-    "portfolio-website": {
-      "name": "Portfolio-Website",
-      "url": "https://github.com/mannycodes20/Portfolio-Website",
-      "description": "My personal portfolio site, built with [HTML/CSS/JS / React / Next.js], featuring my projects, background, and ways to get in touch.",
-      "language": "JavaScript",
-      "stars": 0,
-      "forks": 0,
-      "pushed": "2026-11-14T05:30:47Z"
     },
     "ticktrack-uk": {
       "name": "ticktrack-uk",
