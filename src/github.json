@@ -1,14 +1,18 @@
 {
   "user": "mannycodes20",
-  "synced": "2026-11-23",
-  "publicRepos": 14,
+  "synced": "2026-11-24",
+  "publicRepos": 15,
   "followers": 3,
   "since": "2024",
-  "stars": 8,
+  "stars": 9,
   "languages": [
     [
       "Java",
       3
+    ],
+    [
+      "TypeScript",
+      2
     ],
     [
       "Python",
@@ -19,15 +23,20 @@
       1
     ],
     [
-      "TypeScript",
-      1
-    ],
-    [
       "C#",
       1
     ]
   ],
   "repos": {
+    "louis-core": {
+      "name": "Louis-core",
+      "url": "https://github.com/mannycodes20/Louis-core",
+      "description": "",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushed": "2026-11-24T00:29:23Z"
+    },
     "mannycodes20": {
       "name": "mannycodes20",
       "url": "https://github.com/mannycodes20/mannycodes20",
@@ -35,7 +44,7 @@
       "language": "Python",
       "stars": 2,
       "forks": 0,
-      "pushed": "2026-11-22T14:38:20Z"
+      "pushed": "2026-11-23T18:16:10Z"
     },
     "portfolio-website": {
       "name": "Portfolio-Website",
@@ -44,7 +53,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushed": "2026-11-22T10:28:06Z"
+      "pushed": "2026-11-23T11:27:49Z"
     },
     "ticktrack-uk": {
       "name": "ticktrack-uk",
